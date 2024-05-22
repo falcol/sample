@@ -1,0 +1,57 @@
+{
+	"name": "action web",
+	"version": "0.0.1",
+	"description": "action web",
+	"minimum_chrome_version": "96",
+	"manifest_version": 3,
+	"background": {
+		"service_worker": "background.js",
+		"type": "module"
+	},
+	"content_scripts": [
+		{
+			"all_frames": true,
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"lib/dom-to-image.min.js",
+				"document_start.js"
+			],
+			"run_at": "document_start"
+		}
+	],
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"lib/html2canvas.min.js",
+				"lib/dom-to-image.min.js",
+				"lib/*",
+				"inject/cookie.js",
+				"inject/cookie-func.js",
+				"inject/*"
+			],
+			"matches": [
+				"<all_urls>"
+			]
+		}
+	],
+	"action": {
+		"default_icon": "images/icon.png",
+		"default_popup": "popup.html"
+	},
+	"host_permissions": [
+		"https://*/*",
+		"http://*/*"
+	],
+	"permissions": [
+		"declarativeNetRequest",
+		"declarativeNetRequestWithHostAccess",
+		"declarativeNetRequestFeedback",
+		"tabs",
+		"contextMenus",
+		"storage",
+		"activeTab",
+		"scripting"
+	]
+}
