@@ -18,3 +18,29 @@ def product_master_view_filter(request):
     }
 
     return JsonResponse(response)
+
+
+def select(request):
+    query_data = request.GET.get("query", "")  # Get the search query
+    page = round(float(request.GET.get("page", 1)))  # Get the requested page number
+    page_size = ELEMENTS_PER_PAGE  # Number of options to return per page
+    offset = (page - 1) * page_size  # Start index for the query
+    lg_center_cd = request.session["lg_center_cd"]
+
+    # query data
+    data = []
+    total_count = 0
+
+    results = [{"id": "", "text": ""}] + [
+        {"id": row[0], "text": row[1]} for row in data
+    ]
+
+    # Calculate total pages
+    total_pages = ceil((total_count + 1) / page_size)
+
+    response = {
+        "results": results,
+        "total_pages": total_pages,
+        "current_page": page,
+    }
+    return JsonResponse(response)

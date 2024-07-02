@@ -240,9 +240,10 @@
 		$('.multiselect-container').on('scroll', function() {
 			var select = $(this);
 			if (select[0].scrollHeight - select.scrollTop() <= select.outerHeight()) {
-				var currentPage = loadedOptions.length / {{ELEMENTS_PER_PAGE}} + 1;
-				if (currentPage <= totalPage) {
+				// var currentPage = parseInt(loadedOptions.length / {{ELEMENTS_PER_PAGE}} + 1);
+				if (currentPage < totalPage) {
 					scroll = select.scrollTop();
+					currentPage += 1;
 					loadOptions(currentPage);
 				}
 			}
